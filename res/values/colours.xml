@@ -1,0 +1,12 @@
+<resources>
+    <color name ="business.green">#9fc029</color>
+    <color name ="business.grey">#efefef</color>
+    <color name ="business.green.light">#bbea17</color>
+    <color name ="business.white">#ffffff</color>
+    <color name ="business.menu.background">#212121</color>
+    <color name ="business.menu.text">#fefefe</color>
+    <color name ="business.menu.seperator">#333333</color>
+    <color name ="business.grey.dark">#cdcdcd</color>
+    <color name ="business.grey.light">#f9f9f9</color>
+    <color name ="business.green.dark">#72852e</color>
+</resources>

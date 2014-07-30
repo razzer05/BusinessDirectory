@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Directory 4U</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_base">BaseActivity</string>
+    <string name="title_activity_menu_list">MenuList</string>
+    <string name="title_activity_main_view">MainView</string>
+    <string name="title_database_handler">DatabaseHandler</string>
+    <string name="near">Near:</string>
+    
+    <string name="address_output_string">%1$s, %2$s</string>
+    <string name="no_address_found">No address found for location</string>
+
+</resources>
