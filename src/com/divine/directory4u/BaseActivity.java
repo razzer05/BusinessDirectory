@@ -14,8 +14,10 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 public class BaseActivity extends SlidingFragmentActivity {
 	
 	private int mTitleRes;
+	//protected SherlockListFragment mFragment;
 	protected ListFragment mFragment;
 	private Fragment savedFragment;
+	private int id;
 	
 	public BaseActivity(int titleRes){
 		mTitleRes = titleRes;
@@ -30,6 +32,7 @@ public class BaseActivity extends SlidingFragmentActivity {
 		setBehindContentView(R.layout.menu);
 		FragmentTransaction ft = this.getSupportFragmentManager().beginTransaction();
 		mFragment = new MenuList().setBaseActivity(this);
+		
 		ft.replace(R.id.menu_frame, mFragment);
 		ft.commit();
 		
@@ -53,13 +56,13 @@ public class BaseActivity extends SlidingFragmentActivity {
 		return onOptionsItemSelected(item);
 	}
 	
-	public boolean onCreateOptionsMenu(android.view.Menu menu) {
+	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_main, menu);
+		getMenuInflater().inflate(R.menu.activity_main, (android.view.Menu) menu);
 		return true;
 	}
 
-	int id;
+	
 	
 	public void switchFragment(Fragment fragment) {
 		Log.d(getClass().getName(), "switch " + fragment.toString());
@@ -74,16 +77,16 @@ public class BaseActivity extends SlidingFragmentActivity {
 	public void onPause() {
 		super.onPause();
 		Log.d("BaseActivity", "onPause");
-//		if (id != 0)
-//			savedFragment = getSupportFragmentManager().findFragmentById(id);
-//		switchFragment(new MainView());
+		if (id != 0)
+			savedFragment = getSupportFragmentManager().findFragmentById(id);
+		switchFragment(new MainView());
 	}
 	
 	@Override
 	public void onResume() {
 		super.onResume();
 		Log.d(getClass().getName(), "onResume");
-		//if (savedFragment != null)
-		//	switchFragment(savedFragment);
+		if (savedFragment != null)
+			switchFragment(savedFragment);
 	}
 }

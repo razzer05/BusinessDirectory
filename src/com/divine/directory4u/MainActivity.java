@@ -36,8 +36,8 @@ public class MainActivity extends BaseActivity implements
 		GooglePlayServicesClient.OnConnectionFailedListener, onLocationListener, subAddressListener {
 
 	private Fragment mContent;
-	// private Fragment savedFragment;
-
+	private Fragment savedFragment;
+	
 	// Handle to SharedPreferences for this app
 	SharedPreferences mPrefs;
 
@@ -157,7 +157,7 @@ public class MainActivity extends BaseActivity implements
 	public void onSubItemSelected(long id) {
 		CompaniesFragment companiesfragment = new CompaniesFragment();
 		Bundle args = new Bundle();
-		// args.putLong(CompaniesFragment.ARG_POSITION, id);
+		//args.putLong(CompaniesFragment.ARG_POSITION, id);
 		companiesfragment.setArguments(args);
 
 		FragmentTransaction transaction = getSupportFragmentManager()
@@ -247,10 +247,10 @@ public class MainActivity extends BaseActivity implements
 
 	@Override
 	public void onLocationChanged(Location location) {
-		/*String msg = "Updated Location: "
+		String msg = "Updated Location: "
 				+ Double.toString(location.getLatitude()) + ","
 				+ Double.toString(location.getLongitude());
-		Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();*/
+		Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
 		this.longitude = location.getLongitude();
 		this.latitude = location.getLatitude();
 		mLocationClient.removeLocationUpdates(this);
@@ -284,6 +284,7 @@ public class MainActivity extends BaseActivity implements
 	@Override
 	public void onRestoreInstanceState(Bundle savedInstanceState){
 		super.onRestoreInstanceState(savedInstanceState);
+		
 	}
 
 	/*
@@ -291,13 +292,6 @@ public class MainActivity extends BaseActivity implements
 	 * data){ switch (requestCode){ case CONNECTION_FAILURE_RESOLUTION_REQUEST :
 	 * 
 	 * } INCOMPLETE CODE }
-	 */
-
-	/*
-	 * public void onSaveInstanceState(Bundle outState){
-	 * super.onSaveInstanceState(outState);
-	 * //getSupportFragmentManager().putFragment(outState, "mContent",
-	 * mContent); }
 	 */
 
 	// @Override

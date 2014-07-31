@@ -9,8 +9,10 @@ import android.view.ViewGroup;
 import com.actionbarsherlock.app.SherlockFragment;
 
 public class CompaniesFragment extends SherlockFragment {
-
-
+	
+	
+	
+	
 	public CompaniesFragment(){
 		
 	}
@@ -21,9 +23,8 @@ public class CompaniesFragment extends SherlockFragment {
 		return null;
 	}
 	
-	//@Override
-	//public void onCreate(){
-	//}
+	public void onCreate(){
+	}
 
 	@Override
 	public void onStart() {

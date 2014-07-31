@@ -16,12 +16,12 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
         <item name="android:windowBackground">@color/business.grey</item>
-    	<item name="android:actionBarStyle">@style/Business.ActionBar</item>
+    	<item name="actionBarStyle">@style/Business.ActionBar</item>
     </style>
     
     <style name="Business.ActionBar" parent="@style/Widget.Sherlock.Light.ActionBar.Solid">
-        <item name="android:background">@color/business.green</item>
-        <item name="android:titleTextStyle">@style/Business.ActionBar.TitleTextColour</item>
+        <item name="background">@color/business.green</item>
+        <item name="titleTextStyle">@style/Business.ActionBar.TitleTextColour</item>
     </style>
     
     <style name="Business.ActionBar.TitleTextColour" parent="@style/TextAppearance.Sherlock.Widget.ActionBar.Title">

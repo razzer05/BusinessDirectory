@@ -96,7 +96,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		return list;
 	}
 	
-	/**
+	
 	public List<SubCategory> getSubCatData(String statement){
 		List<SubCategory> sublist = new ArrayList<SubCategory>();
 		String selectQuery = statement;
@@ -109,7 +109,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			} while (cursor.moveToNext());
 		}
 		return sublist;
-	}**/
+	}
 	
 	public void addCategory(Category category){
 		SQLiteDatabase db = this.getWritableDatabase();

@@ -28,8 +28,8 @@ public class CompaniesDetailFragment extends SherlockFragment {
 		return inflater.inflate(R.layout.details, container, false);
 	}
 	
-	//public void onCreate(){
-	//}
+	public void onCreate(){
+	}
 
 	/**
 	 * During startup, check if there are arguments passed to the fragment.
