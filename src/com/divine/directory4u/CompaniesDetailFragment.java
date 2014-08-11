@@ -13,7 +13,7 @@ public class CompaniesDetailFragment extends SherlockFragment {
 	final static String REC_POS = "position";
 	int mCurrentRec = -1;
 
-
+	//will be used to show the full companies details indepth..
 	public CompaniesDetailFragment(){
 		
 	}
@@ -26,9 +26,6 @@ public class CompaniesDetailFragment extends SherlockFragment {
         }
 		
 		return inflater.inflate(R.layout.details, container, false);
-	}
-	
-	public void onCreate(){
 	}
 
 	/**

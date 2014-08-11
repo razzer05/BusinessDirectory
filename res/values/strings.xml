@@ -14,5 +14,9 @@
     
     <string name="address_output_string">%1$s, %2$s</string>
     <string name="no_address_found">No address found for location</string>
+    <string name="add_category">Add Category</string>
+    <string name="delete_all">Delete All</string>
+    <string name="delete_category">Delete Category</string>
+    <string name="add_sub_cat">Add Subcategory</string>
 
 </resources>

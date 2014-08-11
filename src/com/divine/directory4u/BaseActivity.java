@@ -14,10 +14,8 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 public class BaseActivity extends SlidingFragmentActivity {
 	
 	private int mTitleRes;
-	//protected SherlockListFragment mFragment;
 	protected ListFragment mFragment;
-	private Fragment savedFragment;
-	private int id;
+	//private Fragment savedFragment;
 	
 	public BaseActivity(int titleRes){
 		mTitleRes = titleRes;
@@ -30,9 +28,9 @@ public class BaseActivity extends SlidingFragmentActivity {
 		setTitle(mTitleRes);
 		
 		setBehindContentView(R.layout.menu);
+		
 		FragmentTransaction ft = this.getSupportFragmentManager().beginTransaction();
 		mFragment = new MenuList().setBaseActivity(this);
-		
 		ft.replace(R.id.menu_frame, mFragment);
 		ft.commit();
 		
@@ -43,10 +41,12 @@ public class BaseActivity extends SlidingFragmentActivity {
 		slidemenu.setFadeDegree(0.35f);
 		slidemenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
 		
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-		getActionBar().setIcon(R.drawable.ic_launcher);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setIcon(R.drawable.ic_launcher);
 	}
+	
 
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item){
 		switch(item.getItemId()){
 		case android.R.id.home:
@@ -56,13 +56,14 @@ public class BaseActivity extends SlidingFragmentActivity {
 		return onOptionsItemSelected(item);
 	}
 	
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_main, (android.view.Menu) menu);
+		getSupportMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
 	}
 
-	
+	int id;
 	
 	public void switchFragment(Fragment fragment) {
 		Log.d(getClass().getName(), "switch " + fragment.toString());
@@ -77,16 +78,16 @@ public class BaseActivity extends SlidingFragmentActivity {
 	public void onPause() {
 		super.onPause();
 		Log.d("BaseActivity", "onPause");
-		if (id != 0)
-			savedFragment = getSupportFragmentManager().findFragmentById(id);
-		switchFragment(new MainView());
+//		if (id != 0)
+//			savedFragment = getSupportFragmentManager().findFragmentById(id);
+//		switchFragment(new MainView());
 	}
 	
 	@Override
 	public void onResume() {
 		super.onResume();
 		Log.d(getClass().getName(), "onResume");
-		if (savedFragment != null)
-			switchFragment(savedFragment);
+		//if (savedFragment != null)
+		//	switchFragment(savedFragment);
 	}
 }

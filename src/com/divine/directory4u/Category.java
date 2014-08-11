@@ -6,6 +6,9 @@ public class Category {
 	private String category_name;
 	private String category_icon;
 	
+	public Category(){
+	}
+	
 	public Category(int ID, String cat_name, String cat_icon){
 		this.category_name = cat_name;
 		this.category_icon = cat_icon;

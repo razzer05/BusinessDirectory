@@ -30,23 +30,41 @@
             android:paddingLeft="10dp"
             android:textColor="@color/business.green.dark" />
     </LinearLayout>
-<GridView 
+
+<GridView
     android:id="@+id/grid_view_sub"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:numColumns="3"
+    android:layout_alignParentBottom="true"
+    android:layout_below="@id/buttonsLocation"
     android:columnWidth="90dp"
-    android:horizontalSpacing="10dp"
-    android:verticalSpacing="10dp"
     android:gravity="center"
-    android:stretchMode="columnWidth"
+    android:horizontalSpacing="10dp"
+    android:numColumns="3"
+    android:paddingBottom="10dp"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
-   	android:paddingTop="10dp"
-   	android:paddingBottom="10dp"
-   	android:layout_alignParentBottom="true"
-   	android:layout_below="@+id/gridmainlocation">  
+    android:paddingTop="10dp"
+    android:stretchMode="columnWidth"
+    android:verticalSpacing="10dp" >
  
 </GridView>
+
+<LinearLayout
+    android:id="@id/buttonsLocation"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/gridmainlocation"
+    android:layout_centerHorizontal="true"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/add_sub_cat"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_sub_cat" />
+
+</LinearLayout>
 
 </RelativeLayout>

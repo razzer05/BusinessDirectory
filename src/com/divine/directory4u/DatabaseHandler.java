@@ -81,6 +81,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		onCreate(db);
 	}
 	
+	public String getCatName(int id){
+		// 1. get reference to writable DB
+        SQLiteDatabase db = this.getReadableDatabase();
+        //SELECT CAT_NAME FROM TABLE_NAME_CAT WHERE CAT_ID = ?
+        String selectQuery = "SELECT " + CAT_NAME +" FROM " + TABLE_NAME_CAT + " WHERE " + CAT_ID + " =?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[] { String.valueOf(id) });
+        if(cursor !=null)
+        	cursor.moveToFirst();
+        return cursor.getString(0);
+	}
 	
 	public List<Category> getCatData(){
 		List<Category> list = new ArrayList<Category>();
@@ -109,6 +119,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			} while (cursor.moveToNext());
 		}
 		return sublist;
+	}
+	
+	public String getSubCatName(int id){
+		// 1. get reference to writable DB
+        SQLiteDatabase db = this.getReadableDatabase();
+        //SELECT SUBCAT_NAME FROM TABLE_NAME_CAT WHERE CAT_ID = ?
+        String selectQuery = "SELECT " + SUBCAT_NAME +" FROM " + TABLE_NAME_SUBCAT + " WHERE " + SUBCAT_ID + " =?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[] { String.valueOf(id) });
+        if(cursor !=null)
+        	cursor.moveToFirst();
+        return cursor.getString(0);
 	}
 	
 	public void addCategory(Category category){
@@ -150,6 +171,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		Cursor cursor = db.rawQuery(selectQuery, null);
 		return cursor;
 	}
+	
+	public void deleteCat(Category cat) {
+        // 1. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+        // 2. delete
+        db.delete(TABLE_NAME_CAT, //table name
+                CAT_ID+" = ?",  // selections
+                new String[] { String.valueOf(cat.getID()) }); //selections args
+        // 3. close
+        db.close(); 
+    }
+	
+	public void deleteSubCat(SubCategory subCat) {
+        // 1. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+        // 2. delete
+        db.delete(TABLE_NAME_SUBCAT, //table name
+                SUBCAT_ID+" = ?",  // selections
+                new String[] { String.valueOf(subCat.getID()) }); //selections args
+        // 3. close
+        db.close(); 
+    }
 	
 	public static String getCatName(){
 		return CAT_NAME;

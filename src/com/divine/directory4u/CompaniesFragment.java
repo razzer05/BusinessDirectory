@@ -5,25 +5,24 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.actionbarsherlock.app.SherlockFragment;
 
 public class CompaniesFragment extends SherlockFragment {
 	
+	public static final String ARG_POSITION = null;
+	FrameLayout frameLayout;
 	
-	
-	
+	//will be used to show the companie on the map
 	public CompaniesFragment(){
-		
 	}
 	
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+		View view = inflater.inflate(R.layout.companies, container, false);
 		
-		return null;
-	}
-	
-	public void onCreate(){
+		return view;
 	}
 
 	@Override
@@ -33,7 +32,7 @@ public class CompaniesFragment extends SherlockFragment {
 
 	
 	public void onAttach(Activity activity){
-
+		super.onAttach(getActivity());
 	}
 	
 	@Override

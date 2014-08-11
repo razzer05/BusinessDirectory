@@ -14,12 +14,14 @@ public class MenuList extends SherlockListFragment {
 	private static final int FAVOURITES = 1;
 	private static final int HISTORY = 2;
 	private static final int LICENCE = 3;
+	private static final int ABOUT = 4;
 	
 
 	public final static String[] options = new String[] {"Home", "Favourites",
-			"History", "Licences" };
+			"History", "Licences", "About" };
 	public final static int[] icons = new int[] { R.drawable.ic_launcher,
-			R.drawable.ic_launcher, R.drawable.ic_launcher,  R.drawable.ic_launcher };
+			R.drawable.ic_launcher, R.drawable.ic_launcher,  R.drawable.ic_launcher,  
+			R.drawable.ic_launcher };
 	private BaseActivity baseActivity;
 
 
@@ -62,6 +64,8 @@ public class MenuList extends SherlockListFragment {
 			baseActivity.toggle();
 			break;
 		case LICENCE:
+			break;
+		case ABOUT:
 			break;
 		default:
 			break;

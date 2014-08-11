@@ -14,16 +14,17 @@ public class CategoryAdapter extends ArrayAdapter<String> {
 
 	
 	final Context context;
-
+	int count;
 	
 	public CategoryAdapter(Context context) {
 		super(context, R.layout.grid_item);
 		this.context = context;
+		count++;
 	}
 	
 	@Override
 	public int getCount() {
-		return 3;
+		return count;
 	}
 	
 	@Override

@@ -7,6 +7,10 @@ public class SubCategory {
 	private String category_name;
 	private String category_icon;
 	
+	public SubCategory(){
+		
+	}
+	
 	public SubCategory(int ID, int parent, String cat_name, String cat_icon){
 		this.ID = ID;
 		this.belongs_to = parent;

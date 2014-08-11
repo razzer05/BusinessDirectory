@@ -1,35 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_grid"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/main_grid">
+    android:layout_height="wrap_content"
+    android:visibility="visible" >
 
-   <LinearLayout
+    <LinearLayout
         android:id="@+id/gridmainlocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:background="@color/business.green.light"
-        android:orientation="horizontal" 
-        android:layout_alignParentTop="true">
+        android:orientation="horizontal" >
 
         <TextView
             android:id="@+id/near"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/near"
-            android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:text="@string/near"
             android:textColor="@color/business.green.dark" />
+
         <TextView
             android:id="@+id/address_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:paddingLeft="10dp"
+            android:paddingTop="5dp"
             android:textColor="@color/business.green.dark" />
+
     </LinearLayout>
+
 <GridView 
     android:id="@+id/grid_view"
     android:layout_width="fill_parent"
@@ -45,8 +50,25 @@
    	android:paddingTop="10dp"
    	android:paddingBottom="10dp"
    	android:layout_alignParentBottom="true"
-   	android:layout_below="@+id/gridmainlocation">  
+   	android:layout_below="@+id/buttonsLocation">  
  
 </GridView>
+
+<LinearLayout
+    android:id="@+id/buttonsLocation"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/gridmainlocation"
+    android:gravity="center"
+    android:visibility="visible" >
+
+    <Button
+        android:id="@+id/add_cat"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_category"
+        android:visibility="visible" />
+</LinearLayout>
 
 </RelativeLayout>

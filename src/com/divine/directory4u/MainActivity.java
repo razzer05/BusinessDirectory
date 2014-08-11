@@ -3,9 +3,9 @@ package com.divine.directory4u;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
-
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.location.Address;
@@ -33,11 +33,10 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 public class MainActivity extends BaseActivity implements
 		MainView.onCatSelectedListener, LocationListener,
 		GooglePlayServicesClient.ConnectionCallbacks,
-		GooglePlayServicesClient.OnConnectionFailedListener, onLocationListener, subAddressListener {
+		GooglePlayServicesClient.OnConnectionFailedListener, 
+		onLocationListener, subAddressListener, SubViewFragment.onSubCatSelectedListener {
 
 	private Fragment mContent;
-	private Fragment savedFragment;
-	
 	// Handle to SharedPreferences for this app
 	SharedPreferences mPrefs;
 
@@ -53,17 +52,15 @@ public class MainActivity extends BaseActivity implements
 	private static final int FASTEST_INTERVAL_IN_SECONDS = 1;
 	private static final long FASTEST_INTERVAL = MILLISECONDS_PER_SECOND
 			* FASTEST_INTERVAL_IN_SECONDS;
-
+	
 	private LocationClient mLocationClient;
 
 	LocationRequest mLocationRequest;
 
 	public String mAddress;
-
-	private double longitude;
-
-	private double latitude;
-
+	double latitude;
+	double longitude;
+	
 	public MainActivity() {
 		super(R.string.app_name);
 	}
@@ -88,16 +85,19 @@ public class MainActivity extends BaseActivity implements
 		}
 
 		setContentView(R.layout.content_frame);
+		
 		getSupportFragmentManager().beginTransaction()
 				.replace(R.id.content_frame, mContent)
 				.commit();
 
 		setBehindContentView(R.layout.menu_frame);
+		
 		getSupportFragmentManager().beginTransaction()
 				.replace(R.id.menu_frame, new MenuList().setBaseActivity(this))
 				.commit();
 
 		getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
+		
 		setSlidingActionBarEnabled(true);
 
 		mLocationRequest = LocationRequest.create();
@@ -106,7 +106,7 @@ public class MainActivity extends BaseActivity implements
 		mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
 		mLocationClient = new LocationClient(this, this, this);
 	}
-
+	
 	@Override
 	public void onStart() {
 		super.onStart();
@@ -140,11 +140,14 @@ public class MainActivity extends BaseActivity implements
 		mLocationClient.requestLocationUpdates(mLocationRequest, this);
 	}
 
+	//calls category related items..
 	@Override
 	public void onItemSelected(long id) {
 		SubViewFragment subview = new SubViewFragment();
 		Bundle args = new Bundle();
 		args.putLong(SubViewFragment.ARG_POSITION, id);
+		//sets id to 0 for some reason...
+		//args.putString(SubViewFragment.CATNAME, catName);
 		subview.setArguments(args);
 
 		FragmentTransaction transaction = getSupportFragmentManager()
@@ -154,10 +157,14 @@ public class MainActivity extends BaseActivity implements
 		transaction.commit();
 	}
 
+	//calls items related to the subcat id selected..
 	public void onSubItemSelected(long id) {
-		CompaniesFragment companiesfragment = new CompaniesFragment();
+		//CompaniesFragment companiesfragment = new CompaniesFragment();
+		CompaniesListFragment companiesfragment = new CompaniesListFragment();
 		Bundle args = new Bundle();
-		//args.putLong(CompaniesFragment.ARG_POSITION, id);
+		args.putLong(CompaniesListFragment.ARG_POSITION, id);
+		//args.putString(CompaniesListFragment.CATNAME, catName);
+		//args.putString(CompaniesListFragment.SUBCATNAME, subCatName);
 		companiesfragment.setArguments(args);
 
 		FragmentTransaction transaction = getSupportFragmentManager()
@@ -247,19 +254,13 @@ public class MainActivity extends BaseActivity implements
 
 	@Override
 	public void onLocationChanged(Location location) {
-		String msg = "Updated Location: "
-				+ Double.toString(location.getLatitude()) + ","
-				+ Double.toString(location.getLongitude());
-		Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-		this.longitude = location.getLongitude();
-		this.latitude = location.getLatitude();
 		mLocationClient.removeLocationUpdates(this);
 		getAddress();
 	}
 
 	public void getLocation() {
 		if (servicesConnected()) {
-			Location currentLocation = mLocationClient.getLastLocation();
+			mLocationClient.getLastLocation();
 		}
 	}
 
@@ -277,37 +278,34 @@ public class MainActivity extends BaseActivity implements
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
-		getSupportFragmentManager().putFragment(outState, "mContent", mContent);
+		
 		super.onSaveInstanceState(outState);
+		getSupportFragmentManager().putFragment(outState, "mContent", mContent);
 	}
 	
 	@Override
 	public void onRestoreInstanceState(Bundle savedInstanceState){
+		mContent = getSupportFragmentManager().getFragment(savedInstanceState, "mContent");
 		super.onRestoreInstanceState(savedInstanceState);
 		
 	}
 
-	/*
-	 * public void onActivityResult(int requestCode, int resultCode, Intent
-	 * data){ switch (requestCode){ case CONNECTION_FAILURE_RESOLUTION_REQUEST :
-	 * 
-	 * } INCOMPLETE CODE }
-	 */
+	
+	  public void onActivityResult(int requestCode, int resultCode, Intent data) { 
+		  //no idea what this should be used for..
+	  }
+	 
 
-	// @Override
-	// public void onRestoreInstanceState(Bundle bundle) {
-	// super.onRestoreInstanceState(bundle);
-	// mContent = getFragmentManager().getFragment(bundle, "mContent");
-	// }
-
-	// public void switchContent(Fragment fragment){
-	// Log.d(getClass().getName(), "switch " + fragment.toString());
-	// mContent = fragment;
-	// getSupportFragmentManager().beginTransaction().replace(R.id.content_frame,
-	// fragment).commit();
-	// getSlidingMenu().showContent();
-	// }
-
+	public void switchContent(Fragment fragment){
+		Log.d(getClass().getName(), "switch " + fragment.toString());
+		mContent = fragment;
+		getSupportFragmentManager().beginTransaction().replace(R.id.content_frame,
+				fragment).commit();
+		getSlidingMenu().showContent();
+	 }
+	
+	Location location;
+	
 	protected class GetAddressTask extends AsyncTask<Location, Void, String> {
 
 		Context localContext;
@@ -320,12 +318,13 @@ public class MainActivity extends BaseActivity implements
 		@Override
 		protected String doInBackground(Location... params) {
 			Geocoder geocoder = new Geocoder(localContext, Locale.getDefault());
-			Location location = params[0];
+			 location = params[0];
 			List<Address> addresses = null;
-
+			
 			try {
 				addresses = geocoder.getFromLocation(location.getLatitude(),
 						location.getLongitude(), 1);
+				
 			} catch (IOException exception1) {
 				exception1.printStackTrace();
 
@@ -339,10 +338,7 @@ public class MainActivity extends BaseActivity implements
 						R.string.address_output_string,
 
 						address.getMaxAddressLineIndex() > 0 ? address
-								.getAddressLine(0) : "", address.getLocality()// ,
-
-				// The country of the address
-				// address.getCountryName()
+								.getAddressLine(0) : "", address.getCountryCode()
 				);
 
 				return addressText;
@@ -355,9 +351,27 @@ public class MainActivity extends BaseActivity implements
 		protected void onPostExecute(String address) {
 			mAddress = address;
 			((UpdatedText)mContent).updateText(mAddress);
+			latitude = location.getLatitude();
+			longitude = location.getLongitude();
+			if(latitude!=0&&longitude!=0){
+			saveLocation(latitude, longitude);
+			}
+			
 		}
 	}
-
+	
+	public static final String MyPREFERENCES = "MyPrefs";
+	
+	public void saveLocation(double lat, double lng){
+		String sLat = String.valueOf(lat);
+		String sLng = String.valueOf(lng);
+		mPrefs = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+		mEditor = mPrefs.edit();
+		mEditor.putString("lat", sLat);
+		mEditor.putString("lng", sLng);
+		mEditor.commit();
+	}
+	
 	@Override
 	public String getLocationAddress() {
 		if (mAddress == null) {
@@ -372,20 +386,5 @@ public class MainActivity extends BaseActivity implements
 			return "Resolving location";
 		}
 		return mAddress;
-	}
-
-	public void onStatusChanged(String provider, int status, Bundle extras) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void onProviderEnabled(String provider) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void onProviderDisabled(String provider) {
-		// TODO Auto-generated method stub
-		
 	}
 }

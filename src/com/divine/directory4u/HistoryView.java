@@ -11,7 +11,7 @@ public class HistoryView extends SherlockFragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		return inflater.inflate(R.layout.fragment_history_view, container, false);
 	}
-
+	
 }
 
 
