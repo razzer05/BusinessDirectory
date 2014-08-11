@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import com.divine.jsonData.SimpleCompany;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +12,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class JSONAdapter extends BaseAdapter {
+public class JSONListAdapter extends BaseAdapter {
 
 	ArrayList<SimpleCompany> myList = new ArrayList<SimpleCompany>();
 	LayoutInflater inflater;
 	Context context;
 	
-	public JSONAdapter(Context context, ArrayList<SimpleCompany> myList){
+	public JSONListAdapter(Context context, ArrayList<SimpleCompany> myList){
 		this.myList = myList;
 		this.context = context;
 		inflater = LayoutInflater.from(this.context);
@@ -54,7 +53,7 @@ public class JSONAdapter extends BaseAdapter {
         }
         
         mViewHolder.companyName = detail(convertView, R.id.company_name_list, myList.get(position).getName());
-        mViewHolder.vicinity = detail(convertView, R.id.company_vicinity_list, myList.get(position).getFormattedAddress());
+        mViewHolder.vicinity = detail(convertView, R.id.company_formatted_Address_list, myList.get(position).getFormattedAddress());
         return convertView;
 	}
 	

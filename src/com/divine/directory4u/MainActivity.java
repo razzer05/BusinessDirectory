@@ -34,7 +34,8 @@ public class MainActivity extends BaseActivity implements
 		MainView.onCatSelectedListener, LocationListener,
 		GooglePlayServicesClient.ConnectionCallbacks,
 		GooglePlayServicesClient.OnConnectionFailedListener, 
-		onLocationListener, subAddressListener, SubViewFragment.onSubCatSelectedListener {
+		onLocationListener, subAddressListener, SubViewFragment.onSubCatSelectedListener,
+		CompaniesListFragment.onCompanyListItemSelectedListener{
 
 	private Fragment mContent;
 	// Handle to SharedPreferences for this app
@@ -170,6 +171,15 @@ public class MainActivity extends BaseActivity implements
 		FragmentTransaction transaction = getSupportFragmentManager()
 				.beginTransaction();
 		transaction.replace(R.id.content_frame, companiesfragment);
+		transaction.addToBackStack(null);
+		transaction.commit();
+	}
+	
+	public void onCompanyListItemSelected() {
+		CompaniesDetailFragment cdf = new CompaniesDetailFragment();
+		FragmentTransaction transaction = getSupportFragmentManager()
+				.beginTransaction();
+		transaction.replace(R.id.content_frame, cdf);
 		transaction.addToBackStack(null);
 		transaction.commit();
 	}

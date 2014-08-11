@@ -18,5 +18,6 @@
     <string name="delete_all">Delete All</string>
     <string name="delete_category">Delete Category</string>
     <string name="add_sub_cat">Add Subcategory</string>
+    <string name="company_details_reviews">Reviews</string>
 
 </resources>

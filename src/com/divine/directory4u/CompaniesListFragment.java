@@ -17,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -25,19 +26,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.BaseAdapter;
+import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.divine.jsonData.SimpleCompany;
 
 public class CompaniesListFragment extends SherlockListFragment {
 
+	public interface onCompanyListItemSelectedListener{
+		public void onCompanyListItemSelected();
+	}
+	
 	private String apiKey = "AIzaSyDr3YPRA6Xn5lLzPmT2FlcDXmih4OUFRPQ";
-	private double latitude = 53.7406750 , longitude = -1.4883490;
-	private String keyword1 = "pub" , keyword2;
+	private double latitude = 53.7406750 , longitude = -1.4883490; //default values..
 	private int defaultRadius = 1000;
 	
 	public static final String ARG_POSITION = null;
@@ -45,11 +49,13 @@ public class CompaniesListFragment extends SherlockListFragment {
 	ListView lvDetail;
 	View view;
 	final static String REC_POS = "position";
-	int mCurrentRec = -1;
 	ListAdapter adapter;
 	SharedPreferences mPrefs;
+	SharedPreferences.Editor mEditor;
 	public static final String MyPREFERENCES = "MyPrefs";
-	private String query;
+	private ProgressDialog dialog;
+	
+	onCompanyListItemSelectedListener mCallBack;
 	
 	public CompaniesListFragment(){
 		
@@ -58,44 +64,48 @@ public class CompaniesListFragment extends SherlockListFragment {
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		
-		View view = inflater.inflate(R.layout.companies, container, false);
+		view = inflater.inflate(R.layout.companies, container, false);
 		lvDetail = (ListView) view.findViewById(android.R.id.list);
-		adapter = (new JSONAdapter(view.getContext(), list));
+		adapter = (new JSONListAdapter(view.getContext(), list));
 		lvDetail.setAdapter(adapter);
-        
+		
 		return view;
 	}
 	
 	@Override
 	public void onStart() {
 		super.onStart();
-		mPrefs = this.getActivity().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-		latitude = Double.parseDouble(mPrefs.getString("lat", ""));
-		longitude = Double.parseDouble(mPrefs.getString("lng", ""));
-		query = mPrefs.getString("CatName", "") + "+" + mPrefs.getString("SubCatName", "");
-		query = query.replaceAll("\\s","");
-		URL url = null;
-		try {
-			url = new URL("https://maps.googleapis.com/maps/api/place/textsearch/json?" +
-					"query=" + query +
-					"&location=" + latitude + "," + longitude + 
-					"&radius=" + defaultRadius +
-					"&key=" + apiKey);
-			
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		new CompaniesListFragment.getHTTPList().execute(url);
-	}
-	
-	public void updateView(int position){
-		mCurrentRec = position;
+		if(lvDetail.getCount() == 0){
+			mPrefs = this.getActivity().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+			latitude = Double.parseDouble(mPrefs.getString("lat", ""));
+			longitude = Double.parseDouble(mPrefs.getString("lng", ""));
+			String query = mPrefs.getString("CatName", "") + "+" + mPrefs.getString("SubCatName", "");
+			query = query.replaceAll("\\s","");
+			URL url = null;
+			try {
+				url = new URL("https://maps.googleapis.com/maps/api/place/textsearch/json?" +
+						"query=" + query +
+						"&location=" + latitude + "," + longitude + 
+						"&radius=" + defaultRadius +
+						"&key=" + apiKey);
+				
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			new CompaniesListFragment.getHTTPList().execute(url);
+		}else addItemClicks();
 	}
 
 	@Override
 	public void onAttach(Activity activity){
 		super.onAttach(activity);
+		try {
+			mCallBack = (onCompanyListItemSelectedListener) activity;
+		}
+		catch (ClassCastException e) {
+			throw new ClassCastException(activity.toString() + e.getMessage() );
+		}
 	}
 	
 	@Override
@@ -156,6 +166,10 @@ public class CompaniesListFragment extends SherlockListFragment {
 			return object;
 		}
 		
+		@Override
+		protected void onPreExecute() {
+			dialog = ProgressDialog.show(view.getContext(), "","Loading Data. Please wait...", true);
+		}
 		
 		protected void onPostExecute(JSONObject object) {
 			
@@ -175,9 +189,23 @@ public class CompaniesListFragment extends SherlockListFragment {
 					it.next().toString());
 			
 			}
-			((JSONAdapter) adapter).notifyDataSetChanged();
+			((JSONListAdapter) adapter).notifyDataSetChanged();
+			addItemClicks();
+			dialog.dismiss();
 		}
-		
-		
+	}
+	
+	public void addItemClicks(){
+		//Events
+		lvDetail.setOnItemClickListener(new OnItemClickListener() {
+		    @Override
+		    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+		    	String placeID = list.get(position).getPlace_id();
+		    	mPrefs = view.getContext().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+		    	mEditor = mPrefs.edit();
+		    	mEditor.putString("PlaceID", placeID);
+		    	mEditor.commit();
+		    	mCallBack.onCompanyListItemSelected();
+		    }});
 	}
 }

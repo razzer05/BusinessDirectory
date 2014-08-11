@@ -22,6 +22,8 @@ public class SimpleCompany{
    	private String vicinity;
    	private String formattedAddress;
    	
+   	/* This class needs tiding up
+   	 * remove unused and format the rest to the other classes.. */
    	public SimpleCompany(JSONObject obj) {
    		JSONObject geo = obj.optJSONObject("geometry");
 		JSONObject location = geo.optJSONObject("location");
@@ -41,7 +43,7 @@ public class SimpleCompany{
 		String photo_reference = photos.optJSONObject(0).optString("photo_reference");
 		String width = photos.optJSONObject(0).optString("width");
 		}
-		String place_id = obj.optString("place_id");
+		place_id = obj.optString("place_id");
 		String rating = obj.optString("rating");
 		String reference = obj.optString("reference");
 		String scope = obj.optString("scope");

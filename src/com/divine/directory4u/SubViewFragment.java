@@ -163,7 +163,6 @@ public class SubViewFragment extends SherlockFragment implements UpdatedText{
 		super.onPause();
 	}
 	
-	
 	@Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);

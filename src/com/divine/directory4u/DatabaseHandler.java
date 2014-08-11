@@ -63,15 +63,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		 */
 		db.execSQL(CREATE_CAT_TABLE);
 		db.execSQL(CREATE_SUBCAT_TABLE);
-		db.execSQL("INSERT INTO " + TABLE_NAME_CAT + " (" + CAT_NAME + ", " + CAT_ICON + ") VALUES ('Temp 1', 'R.drawable.ic_launcher')");
-		db.execSQL("INSERT INTO " + TABLE_NAME_CAT + " (" + CAT_NAME + ", " + CAT_ICON + ") VALUES ('Temp 2', 'R.drawable.ic_launcher')");
-		db.execSQL("INSERT INTO " + TABLE_NAME_CAT + " (" + CAT_NAME + ", " + CAT_ICON + ") VALUES ('Temp 3', 'R.drawable.ic_launcher')");
-		db.execSQL("INSERT INTO " + TABLE_NAME_SUBCAT + " (" + REF_ID + ", " + SUBCAT_NAME + ", " + SUBCAT_ICON + ") VALUES ('1', 'Parent Temp 1', 'R.drawable.ic_launcher')");
-		db.execSQL("INSERT INTO " + TABLE_NAME_SUBCAT + " (" + REF_ID + ", " + SUBCAT_NAME + ", " + SUBCAT_ICON + ") VALUES ('1', 'Parent Temp 2', 'R.drawable.ic_launcher')");
-		db.execSQL("INSERT INTO " + TABLE_NAME_SUBCAT + " (" + REF_ID + ", " + SUBCAT_NAME + ", " + SUBCAT_ICON + ") VALUES ('1', 'Parent Temp 3', 'R.drawable.ic_launcher')");
-		db.execSQL("INSERT INTO " + TABLE_NAME_SUBCAT + " (" + REF_ID + ", " + SUBCAT_NAME + ", " + SUBCAT_ICON + ") VALUES ('2', 'Parent Temp a', 'R.drawable.ic_launcher')");
-		db.execSQL("INSERT INTO " + TABLE_NAME_SUBCAT + " (" + REF_ID + ", " + SUBCAT_NAME + ", " + SUBCAT_ICON + ") VALUES ('2', 'Parent Temp b', 'R.drawable.ic_launcher')");
-		db.execSQL("INSERT INTO " + TABLE_NAME_SUBCAT + " (" + REF_ID + ", " + SUBCAT_NAME + ", " + SUBCAT_ICON + ") VALUES ('2', 'Parent Temp c', 'R.drawable.ic_launcher')");
+		db.execSQL("INSERT INTO " + TABLE_NAME_CAT + " (" + CAT_NAME + ", " + CAT_ICON + ") VALUES ('Alcohol', 'R.drawable.ic_launcher')");
+		db.execSQL("INSERT INTO " + TABLE_NAME_CAT + " (" + CAT_NAME + ", " + CAT_ICON + ") VALUES ('Accommodation', 'R.drawable.ic_launcher')");
+		db.execSQL("INSERT INTO " + TABLE_NAME_CAT + " (" + CAT_NAME + ", " + CAT_ICON + ") VALUES ('Automobile', 'R.drawable.ic_launcher')");
+		db.execSQL("INSERT INTO " + TABLE_NAME_SUBCAT + " (" + REF_ID + ", " + SUBCAT_NAME + ", " + SUBCAT_ICON + ") VALUES ('1', 'Pub', 'R.drawable.ic_launcher')");
+		db.execSQL("INSERT INTO " + TABLE_NAME_SUBCAT + " (" + REF_ID + ", " + SUBCAT_NAME + ", " + SUBCAT_ICON + ") VALUES ('1', 'Restaurant', 'R.drawable.ic_launcher')");
+		db.execSQL("INSERT INTO " + TABLE_NAME_SUBCAT + " (" + REF_ID + ", " + SUBCAT_NAME + ", " + SUBCAT_ICON + ") VALUES ('1', 'Bar', 'R.drawable.ic_launcher')");
+		db.execSQL("INSERT INTO " + TABLE_NAME_SUBCAT + " (" + REF_ID + ", " + SUBCAT_NAME + ", " + SUBCAT_ICON + ") VALUES ('2', 'Hotel', 'R.drawable.ic_launcher')");
+		db.execSQL("INSERT INTO " + TABLE_NAME_SUBCAT + " (" + REF_ID + ", " + SUBCAT_NAME + ", " + SUBCAT_ICON + ") VALUES ('2', 'Lodges', 'R.drawable.ic_launcher')");
+		db.execSQL("INSERT INTO " + TABLE_NAME_SUBCAT + " (" + REF_ID + ", " + SUBCAT_NAME + ", " + SUBCAT_ICON + ") VALUES ('2', 'Campsites', 'R.drawable.ic_launcher')");
 	}
 
 	@Override

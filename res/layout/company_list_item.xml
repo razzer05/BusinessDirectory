@@ -11,12 +11,12 @@
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
      android:paddingLeft="10dp"
-     android:textSize="25sp" />
+     android:textSize="22sp" />
 
  <TextView
-     android:id="@+id/company_vicinity_list"
+     android:id="@+id/company_formatted_Address_list"
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
-     android:paddingLeft="15dp" />
+     android:paddingLeft="10dp" />
    
 </LinearLayout>

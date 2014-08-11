@@ -1,5 +1,6 @@
 package com.divine.directory4u;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +24,7 @@ public class MenuList extends SherlockListFragment {
 			R.drawable.ic_launcher, R.drawable.ic_launcher,  R.drawable.ic_launcher,  
 			R.drawable.ic_launcher };
 	private BaseActivity baseActivity;
-
+	private Intent intent;
 
 	public MenuList() {
 	}

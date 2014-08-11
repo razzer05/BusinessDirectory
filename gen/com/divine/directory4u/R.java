@@ -1418,8 +1418,8 @@ containing a value of this type.
         public static final int shadow=0x7f02008f;
     }
     public static final class id {
-        public static final int GridItem=0x7f070056;
-        public static final int GridItemSub=0x7f070059;
+        public static final int GridItem=0x7f070059;
+        public static final int GridItemSub=0x7f07005c;
         public static final int abs__action_bar=0x7f070037;
         public static final int abs__action_bar_container=0x7f070036;
         public static final int abs__action_bar_subtitle=0x7f070028;
@@ -1459,11 +1459,10 @@ containing a value of this type.
         public static final int abs__textButton=0x7f07002a;
         public static final int abs__title=0x7f070032;
         public static final int abs__up=0x7f07001d;
-        public static final int action_settings=0x7f070064;
+        public static final int action_settings=0x7f070067;
         public static final int add_cat=0x7f07004f;
-        public static final int add_sub_cat=0x7f070063;
+        public static final int add_sub_cat=0x7f070066;
         public static final int address_location=0x7f07004c;
-        public static final int article_fragment=0x7f070052;
         public static final int book_now=0x7f070010;
         public static final int buttonsLocation=0x7f07004e;
         public static final int buyButton=0x7f07000a;
@@ -1471,21 +1470,25 @@ containing a value of this type.
         public static final int buy_with_google=0x7f07000e;
         public static final int classic=0x7f070011;
         public static final int companies_fragment_container=0x7f070050;
-        public static final int company_name_list=0x7f070053;
-        public static final int company_vicinity_list=0x7f070054;
-        public static final int content_frame=0x7f070055;
+        public static final int company_details_formatted_address=0x7f070055;
+        public static final int company_details_formatted_phone_number=0x7f070056;
+        public static final int company_details_name=0x7f070054;
+        public static final int company_details_review=0x7f070058;
+        public static final int company_details_website=0x7f070057;
+        public static final int company_formatted_Address_list=0x7f070052;
+        public static final int company_name_list=0x7f070051;
+        public static final int content_frame=0x7f070053;
         public static final int disableHome=0x7f07001b;
         public static final int edit_query=0x7f07003d;
         public static final int fullscreen=0x7f070025;
         public static final int grayscale=0x7f070012;
-        public static final int grid_item_image=0x7f070057;
-        public static final int grid_item_image_sub=0x7f07005a;
-        public static final int grid_item_text=0x7f070058;
-        public static final int grid_item_text_sub=0x7f07005b;
+        public static final int grid_item_image=0x7f07005a;
+        public static final int grid_item_image_sub=0x7f07005d;
+        public static final int grid_item_text=0x7f07005b;
+        public static final int grid_item_text_sub=0x7f07005e;
         public static final int grid_view=0x7f07004d;
-        public static final int grid_view_sub=0x7f070062;
+        public static final int grid_view_sub=0x7f070065;
         public static final int gridmainlocation=0x7f07004a;
-        public static final int headlines_fragment=0x7f070051;
         public static final int holo_dark=0x7f070005;
         public static final int holo_light=0x7f070006;
         public static final int homeAsUp=0x7f070018;
@@ -1495,10 +1498,10 @@ containing a value of this type.
         public static final int main_grid=0x7f070049;
         public static final int margin=0x7f070024;
         public static final int match_parent=0x7f07000c;
-        public static final int menu_frame=0x7f07005c;
-        public static final int menu_icon=0x7f07005d;
-        public static final int menu_text=0x7f07005e;
-        public static final int menu_text_item=0x7f07005f;
+        public static final int menu_frame=0x7f07005f;
+        public static final int menu_icon=0x7f070060;
+        public static final int menu_text=0x7f070061;
+        public static final int menu_text_item=0x7f070062;
         public static final int monochrome=0x7f070013;
         public static final int near=0x7f07004b;
         public static final int none=0x7f070000;
@@ -1512,9 +1515,9 @@ containing a value of this type.
         public static final int showCustom=0x7f07001a;
         public static final int showHome=0x7f070017;
         public static final int showTitle=0x7f070019;
-        public static final int slidingmenumain=0x7f070060;
+        public static final int slidingmenumain=0x7f070063;
         public static final int strict_sandbox=0x7f070009;
-        public static final int sub_address_location=0x7f070061;
+        public static final int sub_address_location=0x7f070064;
         public static final int tabMode=0x7f070015;
         public static final int terrain=0x7f070003;
         public static final int useLogo=0x7f070016;
@@ -1707,6 +1710,7 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f05001e;
+        public static final int company_details_reviews=0x7f05003d;
         public static final int delete_all=0x7f05003a;
         public static final int delete_category=0x7f05003b;
         public static final int hello_world=0x7f05002f;
