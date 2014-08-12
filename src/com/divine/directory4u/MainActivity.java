@@ -30,6 +30,13 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
+/**
+ * <p>Deals with switching frames in content_frame and data sending between each of them.</p>
+ * 
+ * <p>This program is part of ENTERPRISE PROJECT - ASSIGNMENT ELEMENT 1</p>
+ * 
+ * <p>Ryan Williamson m2150195@tees.ac.uk 11-Aug-2014</p>
+ */
 public class MainActivity extends BaseActivity implements
 		MainView.onCatSelectedListener, LocationListener,
 		GooglePlayServicesClient.ConnectionCallbacks,
@@ -38,11 +45,10 @@ public class MainActivity extends BaseActivity implements
 		CompaniesListFragment.onCompanyListItemSelectedListener{
 
 	private Fragment mContent;
-	// Handle to SharedPreferences for this app
-	SharedPreferences mPrefs;
-
+	// Handle to SharedPreferences for this application
+	private SharedPreferences mPrefs;
 	// Handle to a SharedPreferences editor
-	SharedPreferences.Editor mEditor;
+	private SharedPreferences.Editor mEditor;
 
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 	public static final String APPTAG = "LocationSample";
@@ -55,12 +61,19 @@ public class MainActivity extends BaseActivity implements
 			* FASTEST_INTERVAL_IN_SECONDS;
 	
 	private LocationClient mLocationClient;
-
-	LocationRequest mLocationRequest;
+	private static final String MY_PREFERENCES = "MyPrefs";
+	private LocationRequest mLocationRequest;
 
 	public String mAddress;
-	double latitude;
-	double longitude;
+	
+	/**
+	 * Used for storing users latitude.
+	 */
+	private double latitude;
+	/**
+	 * Used for storing users longitude.
+	 */
+	private double longitude;
 	
 	public MainActivity() {
 		super(R.string.app_name);
@@ -141,14 +154,11 @@ public class MainActivity extends BaseActivity implements
 		mLocationClient.requestLocationUpdates(mLocationRequest, this);
 	}
 
-	//calls category related items..
 	@Override
 	public void onItemSelected(long id) {
 		SubViewFragment subview = new SubViewFragment();
 		Bundle args = new Bundle();
 		args.putLong(SubViewFragment.ARG_POSITION, id);
-		//sets id to 0 for some reason...
-		//args.putString(SubViewFragment.CATNAME, catName);
 		subview.setArguments(args);
 
 		FragmentTransaction transaction = getSupportFragmentManager()
@@ -158,23 +168,22 @@ public class MainActivity extends BaseActivity implements
 		transaction.commit();
 	}
 
-	//calls items related to the subcat id selected..
 	public void onSubItemSelected(long id) {
-		//CompaniesFragment companiesfragment = new CompaniesFragment();
-		CompaniesListFragment companiesfragment = new CompaniesListFragment();
+		CompaniesListFragment companiesListfragment = new CompaniesListFragment();
 		Bundle args = new Bundle();
 		args.putLong(CompaniesListFragment.ARG_POSITION, id);
-		//args.putString(CompaniesListFragment.CATNAME, catName);
-		//args.putString(CompaniesListFragment.SUBCATNAME, subCatName);
-		companiesfragment.setArguments(args);
+		companiesListfragment.setArguments(args);
 
 		FragmentTransaction transaction = getSupportFragmentManager()
 				.beginTransaction();
-		transaction.replace(R.id.content_frame, companiesfragment);
+		transaction.replace(R.id.content_frame, companiesListfragment);
 		transaction.addToBackStack(null);
 		transaction.commit();
 	}
 	
+	/**
+	 * Switches from the company list fragment in the content frame to the companies details fragment
+	 */
 	public void onCompanyListItemSelected() {
 		CompaniesDetailFragment cdf = new CompaniesDetailFragment();
 		FragmentTransaction transaction = getSupportFragmentManager()
@@ -300,10 +309,8 @@ public class MainActivity extends BaseActivity implements
 		
 	}
 
-	
-	  public void onActivityResult(int requestCode, int resultCode, Intent data) { 
-		  //no idea what this should be used for..
-	  }
+	public void onActivityResult(int requestCode, int resultCode, Intent data) { 
+	}
 	 
 
 	public void switchContent(Fragment fragment){
@@ -370,12 +377,15 @@ public class MainActivity extends BaseActivity implements
 		}
 	}
 	
-	public static final String MyPREFERENCES = "MyPrefs";
-	
+	/**
+	 * Saves the users location latitude and longitude to the sharedPreferences as strings.
+	 * @param lat latitude of the user.
+	 * @param lng longitude of the user.
+	 */
 	public void saveLocation(double lat, double lng){
 		String sLat = String.valueOf(lat);
 		String sLng = String.valueOf(lng);
-		mPrefs = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+		mPrefs = getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
 		mEditor = mPrefs.edit();
 		mEditor.putString("lat", sLat);
 		mEditor.putString("lng", sLng);

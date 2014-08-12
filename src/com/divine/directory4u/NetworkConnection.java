@@ -4,6 +4,13 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+/**
+ * <p>This class checks if there is a network connection.</p>
+ * 
+ * <p>This program is part of ENTERPRISE PROJECT - ASSIGNMENT ELEMENT 1</p>
+ * 
+ * <p>Ryan Williamson m2150195@tees.ac.uk 11-Aug-2014</p>
+ */
 public class NetworkConnection {
 	
 	private Context context;

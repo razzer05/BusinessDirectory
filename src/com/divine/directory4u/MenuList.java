@@ -1,6 +1,5 @@
 package com.divine.directory4u;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,22 +8,23 @@ import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockListFragment;
 
+/**
+ * <p>This class holds all the menu options in a list.</p>
+ * 
+ * <p>This program is part of ENTERPRISE PROJECT - ASSIGNMENT ELEMENT 1</p>
+ * 
+ * <p>Ryan Williamson m2150195@tees.ac.uk 11-Aug-2014</p>
+ */
 public class MenuList extends SherlockListFragment {
 
 	private static final int HOME = 0;
-	private static final int FAVOURITES = 1;
-	private static final int HISTORY = 2;
-	private static final int LICENCE = 3;
-	private static final int ABOUT = 4;
+	private static final int ABOUT = 1;
 	
 
-	public final static String[] options = new String[] {"Home", "Favourites",
-			"History", "Licences", "About" };
+	public final static String[] options = new String[] {"Home", "About" };
 	public final static int[] icons = new int[] { R.drawable.ic_launcher,
-			R.drawable.ic_launcher, R.drawable.ic_launcher,  R.drawable.ic_launcher,  
-			R.drawable.ic_launcher };
+			R.drawable.ic_launcher};
 	private BaseActivity baseActivity;
-	private Intent intent;
 
 	public MenuList() {
 	}
@@ -47,6 +47,9 @@ public class MenuList extends SherlockListFragment {
 	}
 
 	@Override
+	/**
+	 * On list item click, change to that activity.
+	 */
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		switch (position) {
 		case HOME:
@@ -54,19 +57,10 @@ public class MenuList extends SherlockListFragment {
 			baseActivity.switchFragment(home);
 			baseActivity.toggle();
 			break;
-		case FAVOURITES:
-			FavouritesView favourites = new FavouritesView();
-			baseActivity.switchFragment(favourites);
-			baseActivity.toggle();
-			break;
-		case HISTORY:
-			HistoryView history = new HistoryView();
-			baseActivity.switchFragment(history);
-			baseActivity.toggle();
-			break;
-		case LICENCE:
-			break;
 		case ABOUT:
+			AboutView about = new AboutView();
+			baseActivity.switchFragment(about);
+			baseActivity.toggle();
 			break;
 		default:
 			break;

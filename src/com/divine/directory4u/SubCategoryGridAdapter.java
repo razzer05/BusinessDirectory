@@ -10,6 +10,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+/**
+ * <p>This class adapts how the subcategorys should be displayed corresponding to the xml.</p>
+ * 
+ * <p>This program is part of ENTERPRISE PROJECT - ASSIGNMENT ELEMENT 1</p>
+ * 
+ * <p>Ryan Williamson m2150195@tees.ac.uk 11-Aug-2014</p>
+ */
 public class SubCategoryGridAdapter extends SimpleCursorAdapter {
 	
 	final Context mContext;

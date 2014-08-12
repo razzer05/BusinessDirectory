@@ -1,17 +1,26 @@
-package com.divine.directory4u;
+package com.divine.jsonData;
 
 import java.util.ArrayList;
 
-import com.divine.jsonData.SimpleCompany;
+import com.divine.directory4u.R;
+import com.divine.directory4u.R.id;
+import com.divine.directory4u.R.layout;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+/**
+ * <p>This class sets up how the companies list should be displayed on the corresponding xml layouts.</p>
+ * 
+ * <p>This program is part of ENTERPRISE PROJECT - ASSIGNMENT ELEMENT 1</p>
+ * 
+ * <p>Ryan Williamson m2150195@tees.ac.uk 11-Aug-2014</p>
+ */
 public class JSONListAdapter extends BaseAdapter {
 
 	ArrayList<SimpleCompany> myList = new ArrayList<SimpleCompany>();
@@ -36,11 +45,10 @@ public class JSONListAdapter extends BaseAdapter {
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
+	@SuppressLint("InflateParams") @Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		MyViewHolder mViewHolder;
         
@@ -63,15 +71,10 @@ public class JSONListAdapter extends BaseAdapter {
         return tv;
     }
 	
-	private ImageView detail(View v, int resId, int icon) {
-        ImageView iv = (ImageView) v.findViewById(resId);
-        iv.setImageResource(icon); // 
-        
-        return iv;
-    }
-	
 	private class MyViewHolder {
+		@SuppressWarnings("unused")
 		TextView companyName;
+		@SuppressWarnings("unused")
 		TextView vicinity;
 	}
 

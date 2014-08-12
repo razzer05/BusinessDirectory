@@ -15,44 +15,46 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
-//import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.actionbarsherlock.app.SherlockFragment;
 
-
+/**
+ * <p>This class deals with setting up the subcategory's view, provides the events to add or delete subcategory's</p>
+ * 
+ * <p>This program is part of ENTERPRISE PROJECT - ASSIGNMENT ELEMENT 1</p>
+ * 
+ * <p>Ryan Williamson m2150195@tees.ac.uk 11-Aug-2014</p>
+ */
 public class SubViewFragment extends SherlockFragment implements UpdatedText{
 	
 	public interface onSubCatSelectedListener{
-		public void onSubItemSelected(long id); //put in long ID when its pulling from server.
+		public void onSubItemSelected(long id);
 	}
 	
 	public interface subAddressListener{
 		public String getSubLocationAddress();
 	}
-		
-
-	onSubCatSelectedListener mCallBack;
-	subAddressListener mLocation;
+	
+	/* Holder variables */
+	private onSubCatSelectedListener mCallBack;
+	private subAddressListener mLocation;
 	private int castPositionToInt;
-	GridView subGridView;
-	CategoryGridAdapter gridadapter;
-	DatabaseHandler dh;
-	public static final String CATNAME = null;
-	String catName = null;
-	SharedPreferences mPrefs;
-	SharedPreferences.Editor mEditor;
+	private GridView subGridView;
+	private CategoryGridAdapter gridadapter;
+	private DatabaseHandler dh;
+	private SharedPreferences mPrefs;
+	private SharedPreferences.Editor mEditor;
 	private static final String MyPREFERENCES = "MyPrefs";
-	View view;
+	private View view;
 	
 	public static final String ARG_POSITION = null;
-	TextView textview;
+	private TextView textview;
 	
-	public SubViewFragment(){
+	public SubViewFragment() {
 	}
 
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		
 		view = inflater.inflate(R.layout.subcat_view, container, false);
 		Bundle bundle = getArguments();
@@ -75,7 +77,7 @@ public class SubViewFragment extends SherlockFragment implements UpdatedText{
 		
 		subGridView.setAdapter(gridadapter);
 		
-		//Events
+		// onItemsClick save subcatname to sharedpreferences.
 		subGridView.setOnItemClickListener(new OnItemClickListener() {
 		    @Override
 		    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -88,6 +90,7 @@ public class SubViewFragment extends SherlockFragment implements UpdatedText{
 		    	dh.close();
 		    }});
 		
+		// on long click delete subcategory.
 		subGridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
@@ -105,7 +108,10 @@ public class SubViewFragment extends SherlockFragment implements UpdatedText{
 		return view;
 	}
 	
-	public void refresh(){
+	/**
+	 * Refreshes the subcategories grid. Or sets to the new data.
+	 */
+	public void refresh() {
 		DatabaseHandler dh = new DatabaseHandler(getActivity());
 		int[] to = new int[] { R.id.grid_item_text, R.id.grid_item_image };
 		String[] from = new String[] {DatabaseHandler.getSubCatName(), DatabaseHandler.getSubCatIcon()}; 
@@ -126,7 +132,11 @@ public class SubViewFragment extends SherlockFragment implements UpdatedText{
 	    }
 	};
 	
-	public void addSubCat(final int parent){
+	/**
+	 * Pops up a dialog box to enter a subcategory name and then adds it to the database.
+	 * @param parent category parent to the subcategories been displayed.
+	 */
+	public void addSubCat(final int parent) {
     	AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
     	builder.setTitle("Enter Subcategory Name");
 
@@ -138,8 +148,6 @@ public class SubViewFragment extends SherlockFragment implements UpdatedText{
     	public void onClick(DialogInterface dialog, int id) {
     		final String inputText = input.getText().toString();
     		SubCategory c = new SubCategory(0, parent, inputText, "R.drawable.ic_launcher");
-    		
-    		//Toast.makeText(getActivity(), inputText, Toast.LENGTH_SHORT).show();
     		DatabaseHandler dh = new DatabaseHandler(getActivity());
     		dh.addSubCategory(c);
     		refresh();
@@ -149,7 +157,7 @@ public class SubViewFragment extends SherlockFragment implements UpdatedText{
     	builder.show();
     } 
 	
-	public void onCreate(){
+	public void onCreate() {
 		setRetainInstance(true);
 	}
 
@@ -159,7 +167,7 @@ public class SubViewFragment extends SherlockFragment implements UpdatedText{
 	}
 	
 	@Override
-	public void onPause(){
+	public void onPause() {
 		super.onPause();
 	}
 	
@@ -173,13 +181,11 @@ public class SubViewFragment extends SherlockFragment implements UpdatedText{
 		textview.setText(s);
 	}
 	
-	public void onAttach(Activity activity){
+	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		try {
-			
 			mLocation = (subAddressListener) activity;
 			mCallBack = (onSubCatSelectedListener) activity;
-			
 		}
 		catch (ClassCastException e) {
 			throw new ClassCastException(activity.toString() + e.getMessage() );

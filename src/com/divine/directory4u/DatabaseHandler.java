@@ -9,6 +9,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * <p>This class sets up the database with categories and subcategories.
+ * Allows for addition and deletion.</p>
+ * 
+ * <p>This program is part of ENTERPRISE PROJECT - ASSIGNMENT ELEMENT 1</p>
+ * 
+ * <p>Ryan Williamson m2150195@tees.ac.uk 11-Aug-2014</p>
+ */
 public class DatabaseHandler extends SQLiteOpenHelper {
 	
 	/*
@@ -81,6 +89,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		onCreate(db);
 	}
 	
+	/**
+	 * From the id gets the category's name.
+	 * @param id id of which to check.
+	 * @return category's name.
+	 */
 	public String getCatName(int id){
 		// 1. get reference to writable DB
         SQLiteDatabase db = this.getReadableDatabase();
@@ -121,6 +134,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		return sublist;
 	}
 	
+	/**
+	 * From the id gets the subcategory's name.
+	 * @param id id of which to check.
+	 * @return subcategory's name.
+	 */
 	public String getSubCatName(int id){
 		// 1. get reference to writable DB
         SQLiteDatabase db = this.getReadableDatabase();
@@ -132,6 +150,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return cursor.getString(0);
 	}
 	
+	/**
+	 * Adds a category to database with a name and icon.
+	 * @param category object which to add to database.
+	 */
 	public void addCategory(Category category){
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
@@ -141,6 +163,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.close();
 	}
 	
+	/**
+	 * Adds a subcategory to database with a name and icon linked too a category.
+	 * @param subcategory object which to add to database.
+	 */
 	public void addSubCategory(SubCategory subcategory){
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
@@ -172,6 +198,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		return cursor;
 	}
 	
+	/**
+	 * Deletes a category from the database and all its children.
+	 * @param cat which category object to remove
+	 */
 	public void deleteCat(Category cat) {
         // 1. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
@@ -179,10 +209,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.delete(TABLE_NAME_CAT, //table name
                 CAT_ID+" = ?",  // selections
                 new String[] { String.valueOf(cat.getID()) }); //selections args
+        db.delete(TABLE_NAME_SUBCAT, //table name
+                SUBCAT_ID+" = ?",  // selections
+                new String[] { String.valueOf(cat.getID()) }); //selections args
         // 3. close
         db.close(); 
     }
 	
+	/**
+	 * Deletes a subcategory from the database.
+	 * @param subCat which subcategory object to remove.
+	 */
 	public void deleteSubCat(SubCategory subCat) {
         // 1. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();

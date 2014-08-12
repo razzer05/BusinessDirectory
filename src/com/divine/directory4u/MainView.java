@@ -19,18 +19,27 @@ import android.widget.TextView;
 //import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
-
+/**
+ * <p>This class displays the categories, sets up the events to allow for addition and deletion of categories.</p>
+ * 
+ * <p>This program is part of ENTERPRISE PROJECT - ASSIGNMENT ELEMENT 1</p>
+ * 
+ * <p>Ryan Williamson m2150195@tees.ac.uk 11-Aug-2014</p>
+ */
 public class MainView extends SherlockFragment 
 	implements OnClickListener, UpdatedText {
 	
-	private static final String MyPREFERENCES = "MyPrefs";
-	onCatSelectedListener mCallBack;
-	onLocationListener mLocation;
-	CategoryGridAdapter gridadapter;
-	GridView mainGridView;
-	SharedPreferences mPrefs;
-	SharedPreferences.Editor mEditor;
-	View view;
+	// Static variable for sharedPrefernces data storage.
+	private static final String MY_PREFERENCES = "MyPrefs";
+	/* Holder variables */
+	private onCatSelectedListener mCallBack;
+	private onLocationListener mLocation;
+	private CategoryGridAdapter gridadapter;
+	private GridView mainGridView;
+	private SharedPreferences mPrefs;
+	private SharedPreferences.Editor mEditor;
+	private View view;
+	private TextView textview;
 	
 	public interface onCatSelectedListener{
 		public void onItemSelected(long id);
@@ -45,7 +54,7 @@ public class MainView extends SherlockFragment
 	}
 	
 	
-	TextView textview;
+	
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		
@@ -67,12 +76,13 @@ public class MainView extends SherlockFragment
 		
 		mainGridView.setAdapter(gridadapter);
 		
+		//on item click save category name to sharedPreferences, send category id to next fragment and call for fragment swap.
 		mainGridView.setOnItemClickListener(new OnItemClickListener() {
 		    @Override
 		    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 		    	DatabaseHandler dh = new DatabaseHandler(getActivity());
 		    	String catName = dh.getCatName((int)id);
-		    	mPrefs = view.getContext().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+		    	mPrefs = view.getContext().getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
 		    	mEditor = mPrefs.edit();
 		    	mEditor.putString("CatName", catName);
 		    	mEditor.commit();
@@ -80,6 +90,7 @@ public class MainView extends SherlockFragment
 		    	dh.close();
 		    }});
 		
+		//on long click delete call for deletion of that category and children.
 		mainGridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
@@ -98,6 +109,9 @@ public class MainView extends SherlockFragment
 		return view;
 	}
 	
+	/**
+	 * "Refreshes" the categories when a new one is added or deleted. Or sets to the new data.
+	 */
 	public void refresh(){
 		DatabaseHandler dh = new DatabaseHandler(getActivity());
 		int[] to = new int[] { R.id.grid_item_text, R.id.grid_item_image };
@@ -127,7 +141,6 @@ public class MainView extends SherlockFragment
     		Category c = new Category();
     		c.setCatName(inputText);
     		c.setCatIcon("R.drawable.ic_launcher");
-    		//Toast.makeText(getActivity(), inputText, Toast.LENGTH_SHORT).show();
     		DatabaseHandler dh = new DatabaseHandler(getActivity());
     		dh.addCategory(c);
     		refresh();
@@ -138,7 +151,6 @@ public class MainView extends SherlockFragment
     	builder.show();
     } 
     
-	//@Override
 	public void onCreate(){
 	}
 

@@ -8,8 +8,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
-
+/**
+ * <p>This class adapts up how the menus details should be displayed on the corresponding xml layouts.</p>
+ * 
+ * <p>This program is part of ENTERPRISE PROJECT - ASSIGNMENT ELEMENT 1</p>
+ * 
+ * <p>Ryan Williamson m2150195@tees.ac.uk 11-Aug-2014</p>
+ */
 public class MenuAdapter extends ArrayAdapter<String> {
 	
 	public final Context mContext;

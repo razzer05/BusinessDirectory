@@ -9,12 +9,14 @@ import android.widget.FrameLayout;
 
 import com.actionbarsherlock.app.SherlockFragment;
 
+/**
+ * Empty class that was destined for map views of a company.
+ */
 public class CompaniesFragment extends SherlockFragment {
 	
 	public static final String ARG_POSITION = null;
 	FrameLayout frameLayout;
 	
-	//will be used to show the companie on the map
 	public CompaniesFragment(){
 	}
 	

@@ -10,6 +10,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+/**
+ * <p>This sets up how the category grid should be displayed and associates each data value with its xml value.</p>
+ * 
+ * <p>This program is part of ENTERPRISE PROJECT - ASSIGNMENT ELEMENT 1</p>
+ * 
+ * <p>Ryan Williamson m2150195@tees.ac.uk 11-Aug-2014</p>
+ */
 public class CategoryGridAdapter extends SimpleCursorAdapter {
 	
 	final Context mContext;
@@ -25,7 +32,7 @@ public class CategoryGridAdapter extends SimpleCursorAdapter {
 	}
 	
 	@Override
-	public View newView(Context context, Cursor cursor, ViewGroup parent){
+	public View newView(Context context, Cursor cursor, ViewGroup parent) {
 		LayoutInflater inflator = (LayoutInflater) mContext
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View GridItem = inflator.inflate(R.layout.grid_item, parent, false);
@@ -33,14 +40,13 @@ public class CategoryGridAdapter extends SimpleCursorAdapter {
 	}
 	
 	@Override
-	public void bindView(View view, Context context, Cursor cursor){
+	public void bindView(View view, Context context, Cursor cursor) {
 		TextView textview = (TextView) view.findViewById(R.id.grid_item_text);
 		ImageView imageview = (ImageView) view.findViewById(R.id.grid_item_image);
 		textview.setText(mCursor.getString(2));
 		int resId = view.getResources().getIdentifier(mCursor.getString(3), "drawable", mContext.getPackageName());
 		Log.d("Int ID", "" + resId + mCursor.getString(3));
 		imageview.setImageResource(R.drawable.ic_launcher);
-	
 	}
 	
 }
